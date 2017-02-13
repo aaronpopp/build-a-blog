@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Aaron's Blog</title>
+    </head>
+
+    <style type="text/css">
+        body {
+            font-family: Tahoma, Geneva, sans-serif;
+            width: 800px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        .error {
+            color: red
+        }
+
+        label {
+            display: block;
+            font-size: 20px;
+        }
+
+        input[type=text] {
+            width: 400px;
+            font-size: 20px;
+            padding: 2px;
+        }
+
+        textarea {
+            width: 400px;
+            height: 200px;
+            font-size: 17px;
+            font-family: Tahoma, Geneva, sans-serif;
+        }
+
+        input[type=submit] {
+            font-size: 24px;
+        }
+
+        hr {
+            margin: 20px auto;
+        }
+
+        .words + .words {
+            margin-top: 20px;
+        }
+
+        .words-title + .words-body {
+            margin-top: 8px;
+        }
+
+        .words-title {
+            text-decoration: underline;
+            font-size: 20px;
+        }
+
+        .words-body {
+            margin: 0;
+            font-size: 15px;
+            font-family: Tahoma, Geneva, sans-serif;
+        }
+    </style>
+    <body>
+        <h1>
+        <a href="/">Aaron's Blog</a>
+        </h1>
+
+        <form method="post">
+            <label>
+                <div>Title:</div>
+                <input type="text" name="title" value="{{title}}">
+            </label>
+
+            <label>
+                <div>Your words go here:</div>
+                <textarea name="words">{{words}}</textarea>
+            </label>
+
+            <div class="error">{{error}}</div>
+
+            <input type="submit">
+        </form>
+
+        <hr>
+
+        {% for blog in blogs %}
+            <div class="words">
+                <div class="words-title">{{blog.title}}</div>
+                <pre class="words-body">{{blog.words}}
+            </div>
+        {% endfor %}
+
+    </body>
+</html>
