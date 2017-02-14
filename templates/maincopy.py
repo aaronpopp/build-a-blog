@@ -47,12 +47,6 @@ class MainPage(Handler):
 
         self.render("front.html", title=title, words=words, error=error, blogs=blogs)
 
-    def get(self):
-        self.render_front()
-
-class PostPage(Handler):
-    def render_front(self, title="", words="", error=""):
-        self.render("newpost.html", title=title, words=words, error=error)
 
     def get(self):
         self.render_front()
@@ -64,15 +58,11 @@ class PostPage(Handler):
         if title and words:
             b = BlogPost(title=title, words=words)
             b.put()
-            self.redirect("/blog")
+            self.redirect("/")
         else:
             error = "You forgot to submit both a title and some words."
             self.render_front(title, words, error)
 
-
-
 app = webapp2.WSGIApplication([
-    ('/', MainPage),
-    ('/blog', MainPage),
-    ('/blog/newpost', PostPage)
+    ('/', MainPage)
 ], debug=True)
