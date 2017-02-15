@@ -69,10 +69,13 @@ class PostPage(Handler):
             error = "You forgot to submit both a title and some words."
             self.render_front(title, words, error)
 
-
+class ViewPost(webapp2.RequestHandler):
+    def get(self, id):
+        self.response.write(BlogPost.get_by_id)
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/blog', MainPage),
-    ('/blog/newpost', PostPage)
+    ('/blog/newpost', PostPage),
+    (webapp2.Route('/blog/<id:\d+>', ViewPost))
 ], debug=True)
