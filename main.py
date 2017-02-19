@@ -69,9 +69,31 @@ class PostPage(Handler):
             error = "You forgot to submit both a title and some words."
             self.render_front(title, words, error)
 
-class ViewPost(webapp2.RequestHandler):
+class ViewPost(Handler):
     def get(self, id):
-        self.response.write(BlogPost.get_by_id)
+        blog = BlogPost.get_by_id(int(id))
+        self.render("viewpost.html", blog=blog)
+
+# # THE "STUFF I TRIED THAT DIDN'T" WORK SECTION
+# # we are now passing the id into the get, we have to int because it comes as str
+#     def get(self, id):
+#             id = int(id)
+# # creating an instance of blogs at this particular id
+#             blogs = BlogPost.get_by_id(id)
+# # if there's something there (i.e. a valid id), we render the page
+#
+#             if blogs:
+#                 self.render("viewpost.html")
+# # if there's nothing there (i.e. invalid id), we render the page with an error
+#             else:
+#                 error = "There isn't a blog post here."
+#                 self.render("viewpost.html", title=title, words=words, error=error)
+
+#         self.response.write(id)
+
+#     def get(self, id):
+#         blogs = BlogPost.get_by_id(int(id))
+#         self.render_front()
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
