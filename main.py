@@ -64,7 +64,8 @@ class PostPage(Handler):
         if title and words:
             b = BlogPost(title=title, words=words)
             b.put()
-            self.redirect("/blog")
+            link_id = str(b.key().id())
+            self.redirect("/blog/" + link_id)
         else:
             error = "You forgot to submit both a title and some words."
             self.render_front(title, words, error)
@@ -72,9 +73,16 @@ class PostPage(Handler):
 class ViewPost(Handler):
     def get(self, id):
         blog = BlogPost.get_by_id(int(id))
-        self.render("viewpost.html", blog=blog)
+        if blog:
+                self.render("viewpost.html", blog=blog)
+        else:
+            error = "There isn't a blog post here."
+            self.render("viewpost.html", blog=None, error=error)
+    # def get(self, id):
+    #     blog = BlogPost.get_by_id(int(id))
+    #     self.render("viewpost.html", blog=blog)
 
-# # THE "STUFF I TRIED THAT DIDN'T" WORK SECTION
+# # THE "STUFF I TRIED THAT DIDN'T WORK" SECTION
 # # we are now passing the id into the get, we have to int because it comes as str
 #     def get(self, id):
 #             id = int(id)

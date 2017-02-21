@@ -6,10 +6,18 @@
 </h1>
 
 {% for blog in blogs %}
+
     <div class="words">
-        <div class="words-title">{{blog.title}}</div>
+        <a href="/blog/{{blog.key().id()}}">
+            <div class="words-title">{{blog.title}}</div>
+        </a>
         <pre class="words-body">{{blog.words}}
     </div>
 {% endfor %}
+<br>
+<br>
+<a href="/blog/newpost">Make a new post</a>
+<br>
+<a href="/">Home</a>
 
 {% endblock %}
